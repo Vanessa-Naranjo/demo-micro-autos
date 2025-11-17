@@ -12,5 +12,5 @@ public interface AutoService {
 
 	public AutoDto actualizarAuto(AutoDto AutoDto, Integer id);
 	
-	public void eliminarAuto(Integer id);
+	public String eliminarAuto(Integer id);
 }

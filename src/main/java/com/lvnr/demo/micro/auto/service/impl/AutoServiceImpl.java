@@ -1,5 +1,6 @@
 package com.lvnr.demo.micro.auto.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +30,41 @@ public class AutoServiceImpl implements AutoService {
 
 	@Override
 	public List<AutoDto> consultarAutos() {
-		// TODO Auto-generated method stub
-		return null;
+		List<AutoDto> autosDto = new ArrayList<>();
+		List<AutoEntity> autosEntity = autoRepository.findAll();
+
+		for (AutoEntity autoEntity : autosEntity) {
+			AutoDto autoDto = new AutoDto();
+			autoDto.setId(autoEntity.getId());
+			autoDto.setMarca(autoEntity.getMarca());
+			autoDto.setModelo(autoEntity.getModelo());
+			autoDto.setAnioMatriculacion(autoEntity.getAnioMatriculacion());
+
+			autosDto.add(autoDto);
+
+		}
+
+		return autosDto;
 	}
 
 	@Override
-	public AutoDto actualizarAuto(AutoDto AutoDto, Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public AutoDto actualizarAuto(AutoDto autoDto, Integer id) {
+		AutoEntity autoEntity = this.autoRepository.findById(id).get();
+		autoEntity.setMarca(autoDto.getMarca());
+		autoEntity.setModelo(autoDto.getModelo());
+		autoEntity.setAnioMatriculacion(autoDto.getAnioMatriculacion());
+		this.autoRepository.save(autoEntity);
+		autoDto.setId(autoEntity.getId());
+		return autoDto;
 	}
 
 	@Override
-	public void eliminarAuto(Integer id) {
-		// TODO Auto-generated method stub
+	public String eliminarAuto(Integer id) {
+		if(this.autoRepository.existsById(id)) {
+			this.autoRepository.deleteById(id);
+			return "El auto ha sido eliminado" + id;
+		}
+		return "El auto no existe" + id;
 
 	}
 
