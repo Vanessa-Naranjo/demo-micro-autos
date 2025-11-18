@@ -2,19 +2,10 @@ package com.lvnr.demo.micro.auto.dto;
 
 public class AutoDto {
 
-	private Integer id;
 	private String marca;
 	private String modelo;
 	private Integer anioMatriculacion;
 	private String matricula;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getMarca() {
 		return marca;

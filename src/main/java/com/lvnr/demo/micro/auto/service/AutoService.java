@@ -12,7 +12,7 @@ public interface AutoService {
 
 	public AutoDto consultarAutoPorMatricula(String matricula);
 
-	public AutoDto actualizarAuto(AutoDto AutoDto, Integer id);
+	public AutoDto actualizarAuto(AutoDto AutoDto, String matricula);
 
-	public String eliminarAuto(Integer id);
+	public String eliminarAuto(String matricula);
 }

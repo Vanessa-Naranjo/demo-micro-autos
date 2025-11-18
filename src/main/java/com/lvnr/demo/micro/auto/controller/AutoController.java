@@ -32,14 +32,14 @@ public class AutoController {
 		return ResponseEntity.ok(autoService.consultarAutos());
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<AutoDto> actualizarAuto(@RequestBody AutoDto autoDto, @PathVariable Integer id) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(autoService.actualizarAuto(autoDto, id));
+	@PutMapping("/{matricula}")
+	public ResponseEntity<AutoDto> actualizarAuto(@RequestBody AutoDto autoDto, @PathVariable String matricula) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(autoService.actualizarAuto(autoDto, matricula));
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<String> eliminarFruta(@PathVariable Integer id) {
-		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(autoService.eliminarAuto(id));
+	@DeleteMapping("/{matricula}")
+	public ResponseEntity<String> eliminarFruta(@PathVariable String matricula) {
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(autoService.eliminarAuto(matricula));
 	}
 
 	@GetMapping("/consultarpormatricula/{matricula}")

@@ -24,8 +24,12 @@ public class AutoServiceImpl implements AutoService {
 		autoEntity.setModelo(autoDto.getModelo());
 		autoEntity.setAnioMatriculacion(autoDto.getAnioMatriculacion());
 		autoEntity.setMatricula(autoDto.getMatricula());
-		autoRepository.save(autoEntity);
-		autoDto.setId(autoEntity.getId());
+		if (!autoRepository.existsByMatricula(autoDto.getMatricula())) {
+			autoRepository.save(autoEntity);
+		} else {
+			throw new IllegalArgumentException("La placa ya existe" + autoDto.getMatricula());
+		}
+
 		return autoDto;
 	}
 
@@ -36,7 +40,6 @@ public class AutoServiceImpl implements AutoService {
 
 		for (AutoEntity autoEntity : autosEntity) {
 			AutoDto autoDto = new AutoDto();
-			autoDto.setId(autoEntity.getId());
 			autoDto.setMarca(autoEntity.getMarca());
 			autoDto.setModelo(autoEntity.getModelo());
 			autoDto.setAnioMatriculacion(autoEntity.getAnioMatriculacion());
@@ -50,24 +53,23 @@ public class AutoServiceImpl implements AutoService {
 	}
 
 	@Override
-	public AutoDto actualizarAuto(AutoDto autoDto, Integer id) {
-		AutoEntity autoEntity = this.autoRepository.findById(id).get();
+	public AutoDto actualizarAuto(AutoDto autoDto, String matricula) {
+		AutoEntity autoEntity = this.autoRepository.findByMatricula(matricula);
 		autoEntity.setMarca(autoDto.getMarca());
 		autoEntity.setModelo(autoDto.getModelo());
 		autoEntity.setAnioMatriculacion(autoDto.getAnioMatriculacion());
 		autoEntity.setMatricula(autoDto.getMatricula());
 		this.autoRepository.save(autoEntity);
-		autoDto.setId(autoEntity.getId());
 		return autoDto;
 	}
 
 	@Override
-	public String eliminarAuto(Integer id) {
-		if (this.autoRepository.existsById(id)) {
-			this.autoRepository.deleteById(id);
-			return "El auto ha sido eliminado" + id;
+	public String eliminarAuto(String matricula) {
+		if (this.autoRepository.existsByMatricula(matricula)) {
+			this.autoRepository.deleteByMatricula(matricula);
+			return "El auto ha sido eliminado" + matricula;
 		}
-		return "El auto no existe" + id;
+		return "El auto no existe" + matricula;
 
 	}
 
@@ -75,7 +77,6 @@ public class AutoServiceImpl implements AutoService {
 	public AutoDto consultarAutoPorMatricula(String matricula) {
 		AutoEntity autoEntity = this.autoRepository.findByMatricula(matricula);
 		AutoDto autoDto = new AutoDto();
-		autoDto.setId(autoEntity.getId());
 		autoDto.setMarca(autoEntity.getMarca());
 		autoDto.setModelo(autoEntity.getModelo());
 		autoDto.setAnioMatriculacion(autoEntity.getAnioMatriculacion());

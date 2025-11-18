@@ -9,4 +9,9 @@ import com.lvnr.demo.micro.auto.entity.AutoEntity;
 public interface AutoRepository extends JpaRepository<AutoEntity, Integer> {
 
 	AutoEntity findByMatricula(String matricula);
+
+	boolean existsByMatricula(String matricula);
+	
+	AutoEntity deleteByMatricula(String matricula);	
+
 }
