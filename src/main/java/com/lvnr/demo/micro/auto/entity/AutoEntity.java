@@ -1,5 +1,6 @@
 package com.lvnr.demo.micro.auto.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,9 +14,14 @@ public class AutoEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Column(nullable = false)
 	private String marca;
+	@Column(nullable = false)
 	private String modelo;
+	@Column(nullable = false)
 	private Integer anioMatriculacion;
+	@Column(unique = true, nullable = false)
+	private String matricula;
 
 	public Integer getId() {
 		return id;
@@ -47,6 +53,14 @@ public class AutoEntity {
 
 	public void setAnioMatriculacion(Integer anioMatriculacion) {
 		this.anioMatriculacion = anioMatriculacion;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
 }

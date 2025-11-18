@@ -41,4 +41,9 @@ public class AutoController {
 	public ResponseEntity<String> eliminarFruta(@PathVariable Integer id) {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).body(autoService.eliminarAuto(id));
 	}
+
+	@GetMapping("/consultarpormatricula/{matricula}")
+	public ResponseEntity<AutoDto> consultarAutoPorMatricula(@PathVariable String matricula) {
+		return ResponseEntity.ok(autoService.consultarAutoPorMatricula(matricula));
+	}
 }

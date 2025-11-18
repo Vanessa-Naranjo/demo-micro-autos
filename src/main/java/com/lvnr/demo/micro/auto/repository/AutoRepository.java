@@ -8,4 +8,5 @@ import com.lvnr.demo.micro.auto.entity.AutoEntity;
 @Repository
 public interface AutoRepository extends JpaRepository<AutoEntity, Integer> {
 
+	AutoEntity findByMatricula(String matricula);
 }

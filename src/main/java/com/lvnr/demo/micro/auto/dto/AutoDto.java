@@ -6,6 +6,7 @@ public class AutoDto {
 	private String marca;
 	private String modelo;
 	private Integer anioMatriculacion;
+	private String matricula;
 
 	public Integer getId() {
 		return id;
@@ -37,6 +38,14 @@ public class AutoDto {
 
 	public void setAnioMatriculacion(Integer anioMatriculacion) {
 		this.anioMatriculacion = anioMatriculacion;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 
 }

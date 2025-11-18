@@ -10,7 +10,9 @@ public interface AutoService {
 
 	public List<AutoDto> consultarAutos();
 
+	public AutoDto consultarAutoPorMatricula(String matricula);
+
 	public AutoDto actualizarAuto(AutoDto AutoDto, Integer id);
-	
+
 	public String eliminarAuto(Integer id);
 }

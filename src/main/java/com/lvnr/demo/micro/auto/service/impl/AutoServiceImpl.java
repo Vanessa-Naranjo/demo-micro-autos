@@ -23,6 +23,7 @@ public class AutoServiceImpl implements AutoService {
 		autoEntity.setMarca(autoDto.getMarca());
 		autoEntity.setModelo(autoDto.getModelo());
 		autoEntity.setAnioMatriculacion(autoDto.getAnioMatriculacion());
+		autoEntity.setMatricula(autoDto.getMatricula());
 		autoRepository.save(autoEntity);
 		autoDto.setId(autoEntity.getId());
 		return autoDto;
@@ -39,6 +40,7 @@ public class AutoServiceImpl implements AutoService {
 			autoDto.setMarca(autoEntity.getMarca());
 			autoDto.setModelo(autoEntity.getModelo());
 			autoDto.setAnioMatriculacion(autoEntity.getAnioMatriculacion());
+			autoDto.setMatricula(autoEntity.getMatricula());
 
 			autosDto.add(autoDto);
 
@@ -53,6 +55,7 @@ public class AutoServiceImpl implements AutoService {
 		autoEntity.setMarca(autoDto.getMarca());
 		autoEntity.setModelo(autoDto.getModelo());
 		autoEntity.setAnioMatriculacion(autoDto.getAnioMatriculacion());
+		autoEntity.setMatricula(autoDto.getMatricula());
 		this.autoRepository.save(autoEntity);
 		autoDto.setId(autoEntity.getId());
 		return autoDto;
@@ -60,11 +63,25 @@ public class AutoServiceImpl implements AutoService {
 
 	@Override
 	public String eliminarAuto(Integer id) {
-		if(this.autoRepository.existsById(id)) {
+		if (this.autoRepository.existsById(id)) {
 			this.autoRepository.deleteById(id);
 			return "El auto ha sido eliminado" + id;
 		}
 		return "El auto no existe" + id;
+
+	}
+
+	@Override
+	public AutoDto consultarAutoPorMatricula(String matricula) {
+		AutoEntity autoEntity = this.autoRepository.findByMatricula(matricula);
+		AutoDto autoDto = new AutoDto();
+		autoDto.setId(autoEntity.getId());
+		autoDto.setMarca(autoEntity.getMarca());
+		autoDto.setModelo(autoEntity.getModelo());
+		autoDto.setAnioMatriculacion(autoEntity.getAnioMatriculacion());
+		autoDto.setMatricula(autoEntity.getMatricula());
+
+		return autoDto;
 
 	}
 
