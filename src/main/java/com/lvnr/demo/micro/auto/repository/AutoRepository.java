@@ -12,6 +12,6 @@ public interface AutoRepository extends JpaRepository<AutoEntity, Integer> {
 
 	boolean existsByMatricula(String matricula);
 	
-	AutoEntity deleteByMatricula(String matricula);	
+	void deleteByMatricula(String matricula);	
 
 }

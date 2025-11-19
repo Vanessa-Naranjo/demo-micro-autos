@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lvnr.demo.micro.auto.dto.AutoDto;
 import com.lvnr.demo.micro.auto.entity.AutoEntity;
@@ -59,11 +60,17 @@ public class AutoServiceImpl implements AutoService {
 		autoEntity.setModelo(autoDto.getModelo());
 		autoEntity.setAnioMatriculacion(autoDto.getAnioMatriculacion());
 		autoEntity.setMatricula(autoDto.getMatricula());
+		if (matricula != autoDto.getMatricula()) {
+			if (this.autoRepository.existsByMatricula(autoDto.getMatricula())) {
+				throw new IllegalArgumentException("La matricula ya existe: " + autoDto.getMatricula());
+			}
+		}
 		this.autoRepository.save(autoEntity);
 		return autoDto;
 	}
 
 	@Override
+	@Transactional
 	public String eliminarAuto(String matricula) {
 		if (this.autoRepository.existsByMatricula(matricula)) {
 			this.autoRepository.deleteByMatricula(matricula);
